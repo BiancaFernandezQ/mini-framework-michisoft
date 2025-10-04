@@ -1,12 +1,12 @@
 const { test, expect } = require('@playwright/test');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const { SignUp } = require('../../pages/sign_up');
-import { ProductPage } from "../../pages/productpage";
-import { CartPage } from "../../pages/cart_page";
-import { LoginPage } from '../../pages/login_page';
-import { HomePage } from '../../pages/homepage';
-import { PlaceOrderPage } from '../../pages/place.order.page';
+const { SignUp } = require('../pages/sign_up');
+import { ProductPage } from "../pages/productpage";
+import { CartPage } from "../pages/cart_page";
+import { LoginPage } from '../pages/login_page';
+import { HomePage } from '../pages/homepage';
+import { PlaceOrderPage } from '../pages/place.order.page';
 
 test.describe('Registrar usuario desde la base de datos', () => {
     let db;
