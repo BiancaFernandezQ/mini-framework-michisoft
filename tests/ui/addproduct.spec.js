@@ -1,15 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/homePage';
-import { ProductPage } from '../pages/productPage';
+import { test, expect } from '../data/product_fixture.js';
 
-test('Flujo end2end', async ({ page }) => {
-  const homePage = new HomePage(page);
-  const productPage = new ProductPage(page);
-
+test('Flujo E2E productos', async ({ homePage, productPage }) => {
   const productName = 'Samsung galaxy s6';
 
   await homePage.goto();
-
   await homePage.selectProduct(productName);
 
   const alertMessage = await productPage.addToCartAndAcceptAlert();
