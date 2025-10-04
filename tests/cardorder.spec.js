@@ -30,4 +30,3 @@ test('Realizar orden desde el carrito', async ({ page }) => {
   // Confirmar
   await cartPage.confirmOrder();
 });
-
