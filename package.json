@@ -16,7 +16,7 @@
   "dependencies": {
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
-  }
+  },
   "directories": {
     "test": "tests"
   },

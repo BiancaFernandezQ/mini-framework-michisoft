@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = 'https://fakestoreapi.com';
+const BASE_URL = 'https://fakestoreapi.com'; //? TODO: usar nuestra pagina y API GABBY
 
 const productIds = [1, 2, 3, 4, 5]; 
 

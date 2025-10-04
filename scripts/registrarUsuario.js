@@ -36,8 +36,8 @@ db.serialize(() => {
             const stmt = db.prepare(`INSERT INTO customers (username, password) VALUES (?, ?)`);
             for (let i = 0; i < 10; i++) {
                 stmt.run(
-                    faker.name.firstName(),
-                    faker.name.lastName(),
+                    faker.person.firstName() + Date.now(),
+                    faker.person.lastName(),
                     (errRun) => {
                         if (errRun) console.error('Error insertando fila:', errRun);
                     }

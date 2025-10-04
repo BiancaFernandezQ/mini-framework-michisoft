@@ -1,6 +1,6 @@
 // tests/cart.spec.js
 const { test, expect } = require('@playwright/test');
-const { CartPage } = require('../pages/place.order.page.js');
+const { CartPage } = require('../../pages/place.order.page.js');
 
 test('Realizar orden desde el carrito', async ({ page }) => {
   const cartPage = new CartPage(page);

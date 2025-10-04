@@ -1,4 +1,4 @@
-exports.CartPage = class CartPage {
+exports.PlaceOrderPage = class PlaceOrderPage {
   constructor(page) {
     this.page = page;
     this.placeOrderBtn = page.locator("button[data-target='#orderModal']");
@@ -13,9 +13,9 @@ exports.CartPage = class CartPage {
     this.okBtn = page.locator("button.confirm");
   }
 
-  async clickPlaceOrder() {
-    await this.placeOrderBtn.click();
-  }
+  // async clickPlaceOrder() {
+  //   await this.placeOrderBtn.click();
+  // }
 
   async fillOrderForm({ name, country, city, card, month, year }) {
     await this.nameInput.fill(name);
