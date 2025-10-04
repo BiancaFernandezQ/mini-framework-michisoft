@@ -7,6 +7,7 @@ import { CartPage } from "../pages/cart_page";
 import { LoginPage } from '../pages/login_page';
 import { HomePage } from '../pages/homepage';
 import { PlaceOrderPage } from '../pages/place.order.page';
+import { generateOrderData } from '../utils/orderData';
 
 test.describe('Registrar usuario desde la base de datos', () => {
     let db;
@@ -30,7 +31,7 @@ test.describe('Registrar usuario desde la base de datos', () => {
 
         const getUserFromDB = () => {
             return new Promise((resolve, reject) => {
-                db.get('SELECT username, password FROM customers LIMIT 1', (err, row) => {  //? ToDo: VARIAR EN USUARIOS MARIA 
+                db.get('SELECT username, password FROM customers ORDER BY RANDOM() LIMIT 1', (err, row) => {  //? ToDo: VARIAR EN USUARIOS MARIA 
                     if (err) reject(err);
                     resolve(row);
                 });
@@ -69,14 +70,8 @@ test.describe('Registrar usuario desde la base de datos', () => {
         await cartPage.clickPlaceOrder();
         const placeOrderPage = new PlaceOrderPage(page);
 
-        await placeOrderPage.fillOrderForm({ //? ToDo: no harcodear  MARIA
-            name: 'Maria',
-            country: 'Bolivia',
-            city: 'La Paz',
-            card: '1234567890123456',
-            month: '10',
-            year: '2025'
-        });
+        const orderData = generateOrderData(); 
+        await placeOrderPage.fillOrderForm(orderData);
 
         await placeOrderPage.submitOrder();
 
