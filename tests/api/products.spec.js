@@ -30,4 +30,19 @@ test.describe('API - Productos de Demoblaze', () => {
     });
   });
 
+  test('Obtener productos por categoría (electronics)', async ({ request }) => {
+    const response = await request.get(`${BASE_URL}/products/category/electronics`);
+    expect(response.status()).toBe(200);
+
+    const products = await response.json();
+    console.log("Productos en categoría 'electronics':", products.map(p => p.title));
+
+    expect(Array.isArray(products)).toBeTruthy();
+    expect(products.length).toBeGreaterThan(0);
+
+    products.forEach(p => {
+      expect(p).toHaveProperty('category', 'electronics');
+    });
+  });
+
 });
