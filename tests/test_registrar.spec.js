@@ -51,13 +51,19 @@ test.describe('Registrar usuario desde la base de datos', () => {
         await expect(loginPage.list_products).toBeVisible(); 
 
         //! SELECCIONAR PRODUCTO - CARO
-        const productName = 'Samsung galaxy s6'; //? ToDo: no harcodear  GUADA
+        async function addProductToCart(page, productName) {
         let homePage = new HomePage(page);
         await homePage.selectProduct(productName);
         let productPage = new ProductPage(page);
         const alertMessage = await productPage.addToCartAndAcceptAlert();
 
         expect(alertMessage).toBe('Product added.');
+        }
+
+        test('Agregar producto al carrito', async ({ page }) => {
+        const productName = process.env.PRODUCT_NAME; 
+        await addProductToCart(page, productName);
+        });
 
         //! CART - GUADA
         const cartPage = new CartPage(page);
