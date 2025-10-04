@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE_URL = 'https://fakestoreapi.com';
 
-// Array de IDs de productos que queremos probar
-const productIds = [1, 2, 3, 4, 5]; // puedes agregar más IDs según necesites
+const productIds = [1, 2, 3, 4, 5]; 
 
 test.describe('API - Productos de Demoblaze', () => {
 
@@ -15,7 +14,7 @@ test.describe('API - Productos de Demoblaze', () => {
     console.log(data);
   });
 
-  // Data-Driven Test para detalle de productos
+
   productIds.forEach(id => {
     test(`Detalle de producto con ID ${id}`, async ({ request }) => {
       const response = await request.get(`${BASE_URL}/products/${id}`);
@@ -24,7 +23,7 @@ test.describe('API - Productos de Demoblaze', () => {
       const product = await response.json();
       console.log(product);
 
-      // Verificación adicional opcional
+     
       expect(product).toHaveProperty('id', id);
       expect(product).toHaveProperty('title');
       expect(product).toHaveProperty('price');
