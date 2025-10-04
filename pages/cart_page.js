@@ -3,48 +3,33 @@ import { expect } from "@playwright/test";
 export class CardPage {
   constructor(page) {
     this.page = page;
-
-    this.cartLink = '#cartur';
-    this.tableRows = 'tr.success'; 
-    this.totalPrice = '#totalp';
-    this.placeOrderBtn = 'button[data-target="#orderModal"]';
-    this.deleteBtn = 'a:has-text("Delete")'; 
+    this.cartLink = page.locator('#cartur');
+    this.rows = page.locator('tr.success');
+    this.totalPrice = page.locator('#totalp');
+    this.deleteButton = (productName) =>
+      page.locator(`tr:has-text("${productName}") a:has-text("Delete")`);
+    this.placeOrderButton = page.locator('button[data-target="#orderModal"]');
   }
 
   async openCart() {
-    await this.page.click(this.cartLink);
-    await expect(this.page.locator(this.tableRows).first()).toBeVisible();
+    await this.cartLink.click();
+    await expect(this.rows.first()).toBeVisible();
   }
 
-  async getProductRows() {
-    return this.page.locator(this.tableRows);
+  async getProductNames() {
+    return this.rows.locator('td:nth-child(2)').allTextContents();
   }
 
   async validateProductInCart(productName) {
     await expect(this.page.locator(`td:has-text("${productName}")`)).toBeVisible();
   }
 
-  async validateTotalPrice() {
-    const price = await this.page.textContent(this.totalPrice);
-    expect(Number(price)).toBeGreaterThan(0);
+  async getTotalPrice() {
+    return parseInt(await this.totalPrice.textContent(), 10);
   }
 
   async deleteProduct(productName) {
-    const row = this.page.locator(`tr:has-text("${productName}")`);
-    await expect(row).toBeVisible();
-    await row.locator(this.deleteBtn).click();
-  }
-
-  async placeOrder(customer) {
-    await this.page.click(this.placeOrderBtn);
-    await this.page.fill('#name', customer.name);
-    await this.page.fill('#country', customer.country);
-    await this.page.fill('#city', customer.city);
-    await this.page.fill('#card', customer.card);
-    await this.page.fill('#month', customer.month);
-    await this.page.fill('#year', customer.year);
-
-    await this.page.click('button:has-text("Purchase")');
-    await expect(this.page.locator('.sweet-alert')).toBeVisible();
+    await this.deleteButton(productName).click();
   }
 }
+
