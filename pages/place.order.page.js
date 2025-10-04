@@ -34,3 +34,4 @@ exports.CartPage = class CartPage {
     await this.okBtn.click();
   }
 };
+
