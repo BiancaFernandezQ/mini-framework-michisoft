@@ -14,7 +14,7 @@ test.describe('API - Productos de Demoblaze', () => {
     console.log(data);
   });
 
-
+//comment
   productIds.forEach(id => {
     test(`Detalle de producto con ID ${id}`, async ({ request }) => {
       const response = await request.get(`${BASE_URL}/products/${id}`);
