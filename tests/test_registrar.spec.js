@@ -54,8 +54,9 @@ test.describe('Registrar usuario desde la base de datos', () => {
         //! SELECCIONAR PRODUCTO - CARO
         const randomProduct = await getRandomProduct(request);
         const productName = randomProduct.title;
+        const cleanName = productName.trim();
         let homePage = new HomePage(page);
-        await homePage.selectProduct(productName);
+        await homePage.selectProduct(cleanName);
         let productPage = new ProductPage(page);
         const alertMessage = await productPage.addToCartAndAcceptAlert();
 
@@ -65,7 +66,7 @@ test.describe('Registrar usuario desde la base de datos', () => {
         const cartPage = new CartPage(page);
         await cartPage.openCart();
 
-        await cartPage.validateProductInCart(productName);
+        await cartPage.validateProductInCart(cleanName);
         await cartPage.validateTotalPrice();
 
         //! PLACEHOLDER - MARIA
