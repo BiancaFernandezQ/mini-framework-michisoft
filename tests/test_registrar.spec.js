@@ -4,23 +4,11 @@ const path = require('path');
 const { SignUp } = require('../pages/sign_up');
 
 test.describe('Registrar usuario desde la base de datos', () => {
-    let db;
-    const dbPath = path.join(__dirname, '../scripts/data/customer.db');
-
-    test.beforeAll(() => {
-        db = new sqlite3.Database(dbPath, (err) => {
+    test('Registrar usuario usando datos de la base de datos', async ({ page }) => {
+        const dbPath = path.join(__dirname, '../scripts/data/customer.db');
+        const db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Error al abrir la base de datos:', err);
         });
-    });
-
-    test.afterAll(() => {
-        db.close((err) => {
-            if (err) console.error('Error cerrando la base de datos:', err);
-        });
-    });
-
-    test('Registrar usuario usando datos de la base de datos', async ({ page }) => {
-        const signUp = new SignUp(page);
 
         const getUserFromDB = () => {
             return new Promise((resolve, reject) => {
@@ -34,7 +22,12 @@ test.describe('Registrar usuario desde la base de datos', () => {
         const user = await getUserFromDB();
         expect(user).toBeTruthy(); // Verificar que se obtuvo un usuario
 
+        const signUp = new SignUp(page);
         await signUp.goToLogin();
         await signUp.registrar(user.username, user.password);
+
+        db.close((err) => {
+            if (err) console.error('Error cerrando la base de datos:', err);
+        });
     });
 });
