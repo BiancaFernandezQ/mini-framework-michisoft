@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-export class CardPage {
+export class CartPage {
   constructor(page) {
     this.page = page;
     this.cartLink = page.locator('#cartur');
@@ -9,6 +9,8 @@ export class CardPage {
     this.deleteButton = (productName) =>
       page.locator(`tr:has-text("${productName}") a:has-text("Delete")`);
     this.placeOrderButton = page.locator('button[data-target="#orderModal"]');
+    this.placeOrderBtn = page.locator("button[data-target='#orderModal']");
+
   }
 
   async openCart() {
@@ -24,12 +26,15 @@ export class CardPage {
     await expect(this.page.locator(`td:has-text("${productName}")`)).toBeVisible();
   }
 
-  async getTotalPrice() {
+  async validateTotalPrice() {
     return parseInt(await this.totalPrice.textContent(), 10);
   }
 
   async deleteProduct(productName) {
     await this.deleteButton(productName).click();
   }
-}
 
+  async clickPlaceOrder() {
+    await this.placeOrderBtn.click();
+  }
+}
