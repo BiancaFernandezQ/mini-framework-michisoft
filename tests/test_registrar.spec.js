@@ -8,6 +8,7 @@ import { LoginPage } from '../pages/login_page';
 import { HomePage } from '../pages/homepage';
 import { PlaceOrderPage } from '../pages/place.order.page';
 import { generateOrderData } from '../utils/orderData';
+import { getRandomProduct } from '../utils/productsAPI';
 
 test.describe('Registrar usuario desde la base de datos', () => {
     let db;
@@ -25,13 +26,13 @@ test.describe('Registrar usuario desde la base de datos', () => {
         });
     });
 
-    test('Registrar usuario usando datos de la base de datos', async ({ page }) => {
+    test('Registrar usuario usando datos de la base de datos', async ({ request, page }) => {
         //! REGISTRO - BIANCA
         const signUp = new SignUp(page);
 
         const getUserFromDB = () => {
             return new Promise((resolve, reject) => {
-                db.get('SELECT username, password FROM customers ORDER BY RANDOM() LIMIT 1', (err, row) => {  //? ToDo: VARIAR EN USUARIOS MARIA 
+                db.get('SELECT username, password FROM customers ORDER BY RANDOM() LIMIT 1', (err, row) => {  
                     if (err) reject(err);
                     resolve(row);
                 });
@@ -51,19 +52,14 @@ test.describe('Registrar usuario desde la base de datos', () => {
         await expect(loginPage.list_products).toBeVisible(); 
 
         //! SELECCIONAR PRODUCTO - CARO
-        async function addProductToCart(page, productName) {
+        const randomProduct = await getRandomProduct(request);
+        const productName = randomProduct.title;
         let homePage = new HomePage(page);
         await homePage.selectProduct(productName);
         let productPage = new ProductPage(page);
         const alertMessage = await productPage.addToCartAndAcceptAlert();
 
         expect(alertMessage).toBe('Product added.');
-        }
-
-        test('Agregar producto al carrito', async ({ page }) => {
-        const productName = process.env.PRODUCT_NAME; 
-        await addProductToCart(page, productName);
-        });
 
         //! CART - GUADA
         const cartPage = new CartPage(page);
