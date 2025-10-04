@@ -31,7 +31,7 @@ test.describe('Registrar usuario desde la base de datos', () => {
 
         const getUserFromDB = () => {
             return new Promise((resolve, reject) => {
-                db.get('SELECT username, password FROM customers LIMIT 1', (err, row) => {  //? ToDo: VARIAR EN USUARIOS MARIA 
+                db.get('SELECT username, password FROM customers ORDER BY RANDOM() LIMIT 1', (err, row) => {  //? ToDo: VARIAR EN USUARIOS MARIA 
                     if (err) reject(err);
                     resolve(row);
                 });
