@@ -5,34 +5,23 @@ const BASE_URL = 'https://api.demoblaze.com';
 const categorias = ['phone', 'notebook', 'monitor'];
 const productIds = [1, 2, 3, 4, 5]; 
 
-/* test.describe('API - Productos de Demoblaze', () => {
 
-  test('Listar todos los productos', async ({ request }) => {
-    const response = await request.get(`${BASE_URL}/products`);
+test('Simular listado de todos los productos', async ({ request }) => {
+  let allProducts = [];
+
+  for (const cat of categorias) {
+    const response = await request.post(`${BASE_URL}/bycat`, { data: { cat } });
     expect(response.status()).toBe(200);
 
-    const data = await response.json();
-    console.log(data);
-  });
+    const products = await response.json();
+    allProducts = allProducts.concat(products.Items);
+  }
 
-
-  productIds.forEach(id => {
-    test(`Detalle de producto con ID ${id}`, async ({ request }) => {
-      const response = await request.get(`${BASE_URL}/products/${id}`);
-      expect(response.status()).toBe(200);
-
-      const product = await response.json();
-      console.log(product);
-
-     
-      expect(product).toHaveProperty('id', id);
-      expect(product).toHaveProperty('title');
-      expect(product).toHaveProperty('price');
-    });
-  });
-
+  console.log('Todos los productos:', allProducts);
+  expect(allProducts.length).toBeGreaterThan(0); 
 });
- */
+
+
 productIds.forEach(id => {
     test(`Detalle de producto con ID ${id}`, async ({ request }) => {
       const response = await request.post(`${BASE_URL}/view`, {
@@ -48,6 +37,7 @@ productIds.forEach(id => {
       expect(product).toHaveProperty('price');
     });
   });
+
   categorias.forEach(categoria => {
     test(`Obtener productos por categoría: ${categoria}`, async ({ request }) => {
       const response = await request.post(`${BASE_URL}/bycat`, {
