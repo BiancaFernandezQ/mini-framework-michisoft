@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "- Inicializa un proyecto Node.js con un archivo `package.json` por defecto:\r   - `npm init -y`",
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
     "@playwright/test": "^1.55.1"
@@ -17,4 +17,15 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   }
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BiancaFernandezQ/mini-framework-michisoft.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BiancaFernandezQ/mini-framework-michisoft/issues"
+  },
+  "homepage": "https://github.com/BiancaFernandezQ/mini-framework-michisoft#readme"
 }
