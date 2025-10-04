@@ -8,4 +8,16 @@ export class ProductsAPI {
   async getProductsByCategory(category) {
     return this.request.post(`${this.baseUrl}/bycat`, { data: { cat: category } });
   }
+
+    async getProductById(id) {
+    return this.request.post(`${this.baseUrl}/view`, {
+      data: { id: id.toString() },
+    });
+  }
+
+  async getAllProducts() {
+    return this.request.post(`${this.baseUrl}/entries`);
+  }
+
+
 }

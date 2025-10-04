@@ -9,7 +9,7 @@ test.describe('API - Productos por categoría', () => {
   });
 
 
-test(' Obtener productos por categoría (Monitors)', async () => { //? ToDo: no harcodear  JHESS
+test(' Obtener productos por categoría (Monitors)', async () => {
     const response = await api.getProductsByCategory('monitor');
     expect(response.ok()).toBeTruthy();
 
